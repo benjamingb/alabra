@@ -1,0 +1,7 @@
+/nbproject/private/
+/vendor/
+/test/
+nbproject
+phpunit.xml
+vendor
+IDEAS.md
