@@ -283,7 +283,18 @@ abstract class AbstractDbMapper
     {
         $this->initialize();
 
-        $entityValues = $this->entityToArray($entity);
+       //remove null values
+        $entityValuesfilter = array_filter($this->entityToArray($entity), function($value) {
+            return !is_null($value);
+        });
+
+        $entityValues = array_map(function($value) {
+            if ($value instanceof TypeInterfece) {
+                return $value->getValue();
+            }
+            return $value;
+        }, $entityValuesfilter);
+
 
         $sql    = $this->getSql();
         $insert = $sql->insert($tableName ?: $this->tableName);
